@@ -1,38 +1,34 @@
 import React, { PropTypes } from 'react'
 import cx from 'classnames'
 
+import Content from '../../parts/Content'
 import META from '../../utils/Meta'
-import { useKeyOnly } from '../../utils/propUtils'
+import { useKeyOnly, getUnhandledProps } from '../../utils/propUtils'
 
-function AccordionContent({ active, children, className, ...rest }) {
+function AccordionContent(props) {
+  const { active, className }  = props
   const classes = cx(
-    'content',
     useKeyOnly(active, 'active'),
     className
   )
 
+  const rest = getUnhandledProps(AccordionContent, props)
+
   return (
-    <div {...rest} className={classes}>
+    <Content {...rest} className={classes}>
       {children}
-    </div>
+    </Content>
   )
 }
 
-AccordionContent.displayName = 'AccordionContent'
-
 AccordionContent.propTypes = {
+  ...Content.propTypes,
   /** Whether or not the content is visible. */
   active: PropTypes.bool,
-
-  /** Primary content of the Content. */
-  children: PropTypes.node,
-
-  /** Classes to add to the content className. */
-  className: PropTypes.string,
 }
 
 AccordionContent._meta = {
-  library: META.library.semanticUI,
+  ...Content._meta,
   name: 'AccordionContent',
   type: META.type.module,
   parent: 'Accordion',

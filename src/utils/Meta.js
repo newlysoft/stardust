@@ -12,6 +12,7 @@ const TYPES = {
   element: 'element',
   view: 'view',
   module: 'module',
+  part: 'part',
 }
 
 const LIBRARY_VALUES = _.values(LIBRARIES)
