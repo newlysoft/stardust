@@ -1,27 +1,19 @@
-import React, { PropTypes } from 'react'
 import cx from 'classnames'
+import React, { PropTypes } from 'react'
+
 import META from '../../utils/Meta'
-import Label from '../../elements/Label/Label'
+import { getUnhandledProps, useKeyOnly } from '../../utils/propUtils'
 
-function MenuItem({ __onClick, active, children, className, label, name, onClick, ...rest }) {
-  const handleClick = (e) => {
-    if (__onClick) __onClick(name)
-    if (onClick) onClick(name)
-  }
-
+function MenuItem(props) {
+  const { active, children, className } = props
   const classes = cx(
-    active && 'active',
     className,
+    useKeyOnly(active, 'active'),
     'item',
   )
+  const rest = getUnhandledProps(MenuItem, props)
 
-  return (
-    <a {...rest} className={classes} onClick={handleClick}>
-      {name}
-      {label && <Label>{label}</Label>}
-      {children}
-    </a>
-  )
+  return <a {...rest} className={classes}>{children}</a>
 }
 
 MenuItem._meta = {
@@ -31,13 +23,14 @@ MenuItem._meta = {
 }
 
 MenuItem.propTypes = {
-  __onClick: PropTypes.func,
+  /** A menu item can be active. */
   active: PropTypes.bool,
+
+  /** Primary content of the MenuItem. */
   children: PropTypes.node,
+
+  /** Classes that will be added to the MenuItem className. */
   className: PropTypes.string,
-  label: PropTypes.node,
-  name: PropTypes.string,
-  onClick: PropTypes.func,
 }
 
 export default MenuItem
