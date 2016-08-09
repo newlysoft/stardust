@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Confirm } from 'stardust'
 
 class ConfirmConfirmExample extends Component {
-  state = { active: false }
+  state = { active: false, result: 'none' }
 
   show = () => this.setState({ active: true })
   handleConfirm = () => this.setState({ result: 'confirm', active: false })
@@ -13,7 +13,9 @@ class ConfirmConfirmExample extends Component {
 
     return (
       <div>
-        {result && <p>You chose: <em>{result}</em></p>}
+        <p>
+          Result: <em>{result}</em>
+        </p>
 
         <Button onClick={this.show}>Show</Button>
         <Confirm
